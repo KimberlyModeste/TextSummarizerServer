@@ -25,7 +25,7 @@ app.post("/summary", (req, res) => {
 	
 	if (req.body.length === 0)
 	{
-		child = spawn('python', ['bullet.py', req.body.text])
+		child = spawn('python', ['./pyAPI/bullet.py', req.body.text])
 	}
 	else
 	{
@@ -33,7 +33,7 @@ app.post("/summary", (req, res) => {
 		{
 			if (wordCounter >= sum_vals[1][0])
 			{
-				child = spawn('python', ['summarizer.py', req.body.text, sum_vals[1][0], sum_vals[1][1]] )
+				child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[1][0], sum_vals[1][1]] )
 			}
 			else{
 				console.log("This sentence is too short to summarize.")
@@ -41,17 +41,35 @@ app.post("/summary", (req, res) => {
 		}
 		else if (wordCounter >= sum_vals[req.body.length][0])
 		{
-			child = spawn('python', ['summarizer.py', req.body.text, sum_vals[req.body.length][0], sum_vals[req.body.length][1]] )
+			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[req.body.length][0], sum_vals[req.body.length][1]] )
 		}
 		else
 		{
-			child = spawn('python', ['summarizer.py', req.body.text, sum_vals[req.body.length-1][0], sum_vals[req.body.length-1][1]] )
+			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[req.body.length-1][0], sum_vals[req.body.length-1][1]] )
 		}
 	}
 	
 	child.stdout.on('data', (data)=>{
 		console.log("stdout: ", Buffer.from(data.toString(), "hex").toString())
 		res.send({summary: Buffer.from(data.toString(), "hex").toString()})
+	})
+	child.stderr.on('data', (data)=>{
+		console.error("stderr: ", data.toString())
+	})
+	child.on('close', (code)=>{
+		console.log('child process exited with code', code.toString())
+	})
+})
+
+app.post("/voice", (req, res)=>{
+	console.log("in voice")
+	console.log(req.body)
+	let child;
+	child = spawn('python', ['./pyAPI/texttospeech.py', req.body.text])
+
+
+	child.stdout.on('data', (data)=>{
+		console.error("stdout: ", data.toString())
 	})
 	child.stderr.on('data', (data)=>{
 		console.error("stderr: ", data.toString())

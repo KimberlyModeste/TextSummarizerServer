@@ -22,5 +22,4 @@ final_sentence = ""
 for d in dp:
 	final_sentence += "\u2022 "+d+"\n"
 
-
 print(final_sentence.encode(encoding="utf-8").hex())
