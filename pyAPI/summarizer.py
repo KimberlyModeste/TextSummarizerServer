@@ -4,7 +4,7 @@ import sys
 # Retrieve the bart summarization model
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-#Get the text, minimum and maximum based on test's I've done ahead of time
+# Get the text, minimum and maximum based on test's I've done ahead of time
 text = sys.argv[1]
 min = sys.argv[2]
 max = sys.argv[3]

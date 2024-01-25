@@ -86,7 +86,7 @@ app.post("/spellcheck", (req, res)=>{
 
 
 	child.stdout.on('data', (data)=>{
-		console.error("stdout: ", data.toString())
+		console.log("stdout: ", data.toString())
 		res.send({summary: Buffer.from(data.toString(), "hex").toString()})
 	})
 	child.stderr.on('data', (data)=>{
