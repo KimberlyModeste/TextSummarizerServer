@@ -61,15 +61,33 @@ app.post("/summary", (req, res) => {
 	})
 })
 
-app.post("/voice", (req, res)=>{
-	console.log("in voice")
+// app.post("/voice", (req, res)=>{
+// 	console.log("in voice")
+// 	console.log(req.body)
+// 	let child;
+// 	child = spawn('python', ['./pyAPI/texttospeech.py', req.body.text])
+
+
+// 	child.stdout.on('data', (data)=>{
+// 		console.error("stdout: ", data.toString())
+// 	})
+// 	child.stderr.on('data', (data)=>{
+// 		console.error("stderr: ", data.toString())
+// 	})
+// 	child.on('close', (code)=>{
+// 		console.log('child process exited with code', code.toString())
+// 	})
+// })
+
+app.post("/spellcheck", (req, res)=>{
 	console.log(req.body)
 	let child;
-	child = spawn('python', ['./pyAPI/texttospeech.py', req.body.text])
+	child = spawn('python', ['./pyAPI/spellchecker.py', req.body.text])
 
 
 	child.stdout.on('data', (data)=>{
 		console.error("stdout: ", data.toString())
+		res.send({summary: Buffer.from(data.toString(), "hex").toString()})
 	})
 	child.stderr.on('data', (data)=>{
 		console.error("stderr: ", data.toString())
@@ -78,6 +96,7 @@ app.post("/voice", (req, res)=>{
 		console.log('child process exited with code', code.toString())
 	})
 })
+
 
 app.get("/", (req, res) => {
 	res.send("Hello World");
