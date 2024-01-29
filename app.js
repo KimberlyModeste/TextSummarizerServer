@@ -1,9 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { decode } = require("punycode");
-const { escape } = require("querystring");
-const spawn = require("child_process").spawn
-// let child = require("./child")
+const spawn = require("child_process").spawn //This allows me to use Python
 
 const app = express();
 
@@ -11,6 +8,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({limit: '100mb', extended: true}))
 
+//Uses the python summary file
 app.post("/summary", (req, res) => {
 
 	let child;
@@ -61,24 +59,7 @@ app.post("/summary", (req, res) => {
 	})
 })
 
-// app.post("/voice", (req, res)=>{
-// 	console.log("in voice")
-// 	console.log(req.body)
-// 	let child;
-// 	child = spawn('python', ['./pyAPI/texttospeech.py', req.body.text])
-
-
-// 	child.stdout.on('data', (data)=>{
-// 		console.error("stdout: ", data.toString())
-// 	})
-// 	child.stderr.on('data', (data)=>{
-// 		console.error("stderr: ", data.toString())
-// 	})
-// 	child.on('close', (code)=>{
-// 		console.log('child process exited with code', code.toString())
-// 	})
-// })
-
+//Uses the python spellcheck file
 app.post("/spellcheck", (req, res)=>{
 	console.log(req.body)
 	let child;
@@ -97,12 +78,31 @@ app.post("/spellcheck", (req, res)=>{
 	})
 })
 
-
+//A get file that's uncommon to check if deployment is working well 
 app.get("/", (req, res) => {
-	res.send("Hello World");
+	res.send("Hello World! Sd'c iyeb qsbv BycoKceuy!");
 });
 
-const PORT = process.env.PORT || 8080;
+//Voice file stuff. May or may not use in the future 
+// app.post("/voice", (req, res)=>{
+// 	console.log("in voice")
+// 	console.log(req.body)
+// 	let child;
+// 	child = spawn('python', ['./pyAPI/texttospeech.py', req.body.text])
+
+
+// 	child.stdout.on('data', (data)=>{
+// 		console.error("stdout: ", data.toString())
+// 	})
+// 	child.stderr.on('data', (data)=>{
+// 		console.error("stderr: ", data.toString())
+// 	})
+// 	child.on('close', (code)=>{
+// 		console.log('child process exited with code', code.toString())
+// 	})
+// })
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,
     console.log(`Server started on port ${PORT}`)
