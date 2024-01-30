@@ -19,15 +19,15 @@ app.post("/summary", (req, res) => {
 		3 : [150, 400],
 		4 : [200, 500]
 	}
+	let len = parseInt(req.body.length)
 	
-	
-	if (req.body.length === 0)
+	if (len === 0)
 	{
 		child = spawn('python', ['./pyAPI/bullet.py', req.body.text])
 	}
 	else
 	{
-		if(req.body.length === 1)
+		if(len === 1)
 		{
 			if (wordCounter >= sum_vals[1][0])
 			{
@@ -39,11 +39,11 @@ app.post("/summary", (req, res) => {
 		}
 		else if (wordCounter >= sum_vals[req.body.length][0])
 		{
-			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[req.body.length][0], sum_vals[req.body.length][1]] )
+			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[len][0], sum_vals[len][1]] )
 		}
 		else
 		{
-			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[req.body.length-1][0], sum_vals[req.body.length-1][1]] )
+			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[len-1][0], sum_vals[len-1][1]] )
 		}
 	}
 	
