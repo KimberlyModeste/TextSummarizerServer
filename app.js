@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 app.options('*', cors())
 
 //Uses the python summary file
-app.get("/summary", (req, res) => {
+app.post("/summary", (req, res) => {
 
 	console.log("Has gotten here")
 	console.log("Req.body.text: ", req.body.text)
@@ -74,7 +74,7 @@ app.get("/summary", (req, res) => {
 })
 
 //Uses the python spellcheck file
-app.get("/spellcheck", (req, res)=>{
+app.post("/spellcheck", (req, res)=>{
 	console.log(req.body)
 	let child;
 	child = spawn('python', ['./pyAPI/spellchecker.py', req.body.text])
