@@ -28,7 +28,6 @@ app.post("/summary", (req, res) => {
 		4 : [200, 500]
 	}
 	let len = parseInt(req.body.length)
-	console.log( process.env.PATH );
 
 	if (len === 0)
 	{
