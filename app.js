@@ -21,6 +21,7 @@ app.get("/summary", (req, res) => {
 	console.log("Has gotten here")
 	console.log("Req.body.text: ", req.body.text)
 	console.log("Req.body.len: ", req.body.length)
+	console.log("Req.body: ", req.body)
 	let child;
 	let wordCounter = req.body.text.split(" ").length
 	let sum_vals = {
