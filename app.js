@@ -7,18 +7,20 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({limit: '100mb', extended: true}))
-// app.use((req, res, next) => {
-// 	res.setHeader("Access-Control-Allow-Origin", "*");
-// 	res.header("Access-Control-Allow-Methods", "POST, GET, PUT");
-// 	res.header("Access-Control-Allow-Headers", "Content-Type");
-// 	next();
-// })
-// app.options('*', cors())
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "POST, GET, PUT");
+	res.header("Access-Control-Allow-Headers", "Content-Type");
+	next();
+})
+app.options('*', cors())
 
 //Uses the python summary file
 app.get("/summary", (req, res) => {
 
 	console.log("Has gotten here")
+	console.log("Req.body.text: ", req.body.text)
+	console.log("Req.body.len: ", req.body.length)
 	let child;
 	let wordCounter = req.body.text.split(" ").length
 	let sum_vals = {
