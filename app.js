@@ -32,7 +32,7 @@ app.post("/summary", (req, res) => {
 
 	if (len === 0)
 	{
-		child = spawn('python', ['./pyAPI/bullet.py', req.body.text], {shell: true})
+		child = spawn('python', [process.env.PATH+'./pyAPI/bullet.py', req.body.text])
 	}
 	else
 	{
