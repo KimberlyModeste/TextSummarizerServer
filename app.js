@@ -28,9 +28,11 @@ app.post("/summary", (req, res) => {
 		4 : [200, 500]
 	}
 	let len = parseInt(req.body.length)
+	console.log( process.env.PATH );
+
 	if (len === 0)
 	{
-		child = spawn('python', [process.env.pyAPI.bullet.py, req.body.text])
+		child = spawn('python', ['./pyAPI/bullet.py', req.body.text], {shell: true})
 	}
 	else
 	{
