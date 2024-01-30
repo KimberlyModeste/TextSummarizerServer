@@ -19,9 +19,6 @@ app.options('*', cors())
 app.post("/summary", (req, res) => {
 
 	console.log("Has gotten here")
-	console.log("Req.body.text: ", req.body.text)
-	console.log("Req.body.len: ", req.body.length)
-	console.log("Req.body: ", req.body)
 	let child;
 	let wordCounter = req.body.text.split(" ").length
 	let sum_vals = {
@@ -32,11 +29,9 @@ app.post("/summary", (req, res) => {
 	}
 	let len = parseInt(req.body.length)
 	
-	console.log("After Lets")
-	console.log("Body length: ", len)
-	
 	if (len === 0)
 	{
+		console.log("before spawn")
 		child = spawn('python', ['./pyAPI/bullet.py', req.body.text])
 	}
 	else
@@ -45,6 +40,8 @@ app.post("/summary", (req, res) => {
 		{
 			if (wordCounter >= sum_vals[1][0])
 			{
+		console.log("before spawn")
+
 				child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[1][0], sum_vals[1][1]] )
 			}
 			else{
@@ -53,10 +50,14 @@ app.post("/summary", (req, res) => {
 		}
 		else if (wordCounter >= sum_vals[req.body.length][0])
 		{
+		console.log("before spawn")
+
 			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[len][0], sum_vals[len][1]] )
 		}
 		else
 		{
+		console.log("before spawn")
+
 			child = spawn('python', ['./pyAPI/summarizer.py', req.body.text, sum_vals[len-1][0], sum_vals[len-1][1]] )
 		}
 	}
