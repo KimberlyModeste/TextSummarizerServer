@@ -31,7 +31,8 @@ app.post("/summary", (req, res) => {
 
 	if (len === 0)
 	{
-		child = spawn('python', ['TextSummarizerServer/pyAPI/bullet.py', req.body.text])
+		child = spawn('./pyAPI/bullet.py',[req.body.text])
+		// child = spawn('python', ['TextSummarizerServer/pyAPI/bullet.py', req.body.text])
 	}
 	else
 	{
