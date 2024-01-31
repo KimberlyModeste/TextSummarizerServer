@@ -5,6 +5,10 @@
 		"src": "app.js",
 		"use": "@vercel/node",
 		"config": { "includeFiles": ["dist/**"] }
+		},
+		{
+			"src": "/pyAPI/*.py",
+			"use": "@vercel/python"
 		}
 	],
 	"routes": [
