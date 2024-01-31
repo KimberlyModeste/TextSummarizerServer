@@ -7,7 +7,7 @@
 		"config": { "includeFiles": ["dist/**"] }
 		},
 		{
-			"src": "/pyAPI/*.py",
+			"src": "./pyAPI/*.py",
 			"use": "@vercel/python"
 		}
 	],
