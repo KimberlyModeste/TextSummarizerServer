@@ -7,13 +7,13 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({limit: '100mb', extended: true}))
-app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Methods", "POST, GET, PUT");
-	res.header("Access-Control-Allow-Headers", "Content-Type");
-	next();
-})
-app.options('*', cors())
+// app.use((req, res, next) => {
+// 	res.setHeader("Access-Control-Allow-Origin", "*");
+// 	res.header("Access-Control-Allow-Methods", "POST, GET, PUT");
+// 	res.header("Access-Control-Allow-Headers", "Content-Type");
+// 	next();
+// })
+// app.options('*', cors())
 
 //Uses the python summary file
 app.post("/summary", (req, res) => {
@@ -31,7 +31,7 @@ app.post("/summary", (req, res) => {
 
 	if (len === 0)
 	{
-		child = spawn('python', ['bullet.py', req.body.text])
+		child = spawn('python', ['./pyAPI/bullet.py', req.body.text])
 	}
 	else
 	{
