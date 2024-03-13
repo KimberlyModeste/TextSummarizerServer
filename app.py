@@ -49,7 +49,6 @@ def summary():
 @cross_origin()
 def spellcheck():
 	data = request.get_json()
-
 	result = pyAPI.spellchecker.spellcheck(data['text'])
 
 	return {'summary' : result}
