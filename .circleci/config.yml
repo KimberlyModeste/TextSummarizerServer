@@ -19,9 +19,9 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
           
-      - run: python app.py
-          # name: Run backend
-          # command: 
+      - run:
+          name: Run tests
+          command: pytest
 
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
