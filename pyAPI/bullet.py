@@ -1,4 +1,7 @@
 import math
+import nltk
+nltk.download('punkt')
+
 from sumy.summarizers.luhn import LuhnSummarizer
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
